@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function() { 
+            var URI = 'ws://echo.websocket.org/'
+            var websocket = null
+
+            var init = function() {
+                websocket = new WebSocket(URI)
+                websocket.onopen = function(event) {
+                    onOpen(event)
+                }
+                websocket.onmessage = function(event) {
+                    onMessage(event)
+                }
+            }
+            function onMessage(event) {
+                console.log(event.data)
+            }
+
+            function onOpen(e) {
+                console.log('Connected')
+                sendMessage('My first message')
+            }
+
+            function sendMessage(str) {
+                websocket.send(str)
+            }
+            init()
+        })()
+    </script>
+</body>
+</html>
